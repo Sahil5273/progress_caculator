@@ -303,116 +303,133 @@
     <script>
         // Biology chapter list
         const biologyChapters = [
-            {
-                id: "biology-1",
-                title: "1. Diversity in the Living World",
-                topics: [
-                    "Taxonomy and systematics",
-                    "Five kingdom classification",
-                    "Salient features of major groups",
-                    "Biological nomenclature",
-                    "Tools for study of taxonomy"
-                ]
-            },
-            {
-                id: "biology-2",
-                title: "2. Structural Organisation in Animals and Plants",
-                topics: [
-                    "Plant tissues and tissue systems",
-                    "Morphology and anatomy of flowering plants",
-                    "Animal tissues",
-                    "Morphology and anatomy of different animal types",
-                    "Structural adaptations in animals"
-                ]
-            },
-            {
-                id: "biology-3",
-                title: "3. Cell Structure and Function",
-                topics: [
-                    "Cell theory and cell as basic unit of life",
-                    "Prokaryotic and eukaryotic cells",
-                    "Cell organelles and their functions",
-                    "Cell division: mitosis and meiosis",
-                    "Biomolecules and enzymes"
-                ]
-            },
-            {
-                id: "biology-4",
-                title: "4. Plant Physiology",
-                topics: [
-                    "Transport in plants",
-                    "Mineral nutrition",
-                    "Photosynthesis",
-                    "Respiration",
-                    "Plant growth and development"
-                ]
-            },
-            {
-                id: "biology-5",
-                title: "5. Human Physiology",
-                topics: [
-                    "Digestive system",
-                    "Respiratory system",
-                    "Circulatory system",
-                    "Excretory system",
-                    "Nervous system and sense organs"
-                ]
-            },
-            {
-                id: "biology-6",
-                title: "6. Reproduction",
-                topics: [
-                    "Asexual and sexual reproduction",
-                    "Reproduction in flowering plants",
-                    "Human reproductive system",
-                    "Gametogenesis, fertilization and development",
-                    "Reproductive health"
-                ]
-            },
-            {
-                id: "biology-7",
-                title: "7. Genetics and Evolution",
-                topics: [
-                    "Mendelian genetics",
-                    "Chromosomal basis of inheritance",
-                    "Molecular basis of inheritance",
-                    "Evolution: theories and evidences",
-                    "Human evolution"
-                ]
-            },
-            {
-                id: "biology-8",
-                title: "8. Biology and Human Welfare",
-                topics: [
-                    "Health and disease",
-                    "Immunity and immunology",
-                    "Agricultural practices",
-                    "Animal husbandry",
-                    "Microbes in human welfare"
-                ]
-            },
-            {
-                id: "biology-9",
-                title: "9. Biotechnology and Its Applications",
-                topics: [
-                    "Principles and processes of biotechnology",
-                    "Genetic engineering and genomics",
-                    "Applications in agriculture",
-                    "Applications in medicine",
-                    "Biosafety and bioethics"
-                ]
-            },
-            {
-                id: "biology-10",
-                title: "10. Ecology and Environment",
-                topics: [
-                    "Ecosystems: structure and function",
-                    "Biodiversity and conservation",
-                    "Environmental issues",
-                    "Population interactions",
-                    "Biogeochemical cycles"
-                ]
-            }
+        [
+    {
+        "id": "biology-1",
+        "title": "1. Diversity in Living World",
+        "topics": [
+            "What is living? Biodiversity and classification needs",
+            "Taxonomy & Systematics: Species concept, taxonomic hierarchy",
+            "Binomial nomenclature rules (ICBN, ICZN)",
+            "Five-kingdom classification (Whittaker): Monera, Protista, Fungi, Plantae, Animalia",
+            "Viruses, Viroids, Prions, and Lichens (symbiotic associations)",
+            "Salient features of major plant groups: Algae, Bryophytes, Pteridophytes, Gymnosperms, Angiosperms",
+            "Salient features of animal phyla (Non-chordates up to phyla, Chordates up to classes)",
+            "Tools for taxonomy: Herbarium, Botanical gardens, Museums, Keys"
+        ]
+    },
+    {
+        "id": "biology-2",
+        "title": "2. Structural Organisation in Plants and Animals",
+        "topics": [
+            "Plant Tissues: Meristematic & Permanent (Simple/Complex)",
+            "Anatomy of flowering plants: Root, Stem, Leaf (Monocot/Dicot)",
+            "Secondary growth in dicot stems and roots",
+            "Animal Tissues: Epithelial, Connective, Muscular, Neural",
+            "Morphology & Anatomy of Cockroach/Frog (Comparative study)",
+            "Adaptations in animals (Aquatic, Desert, Volant)"
+        ]
+    },
+    {
+        "id": "biology-3",
+        "title": "3. Cell Structure and Function",
+        "topics": [
+            "Cell Theory (Schleiden, Schwann, Virchow)",
+            "Prokaryotic vs Eukaryotic cells (with examples)",
+            "Cell Organelles: Structure & Functions (Nucleus, ER, Golgi, Lysosomes, Mitochondria, Plastids, Ribosomes)",
+            "Endomembrane System & Cytoskeleton (Microtubules, Microfilaments)",
+            "Biomolecules: Proteins, Carbohydrates, Lipids, Nucleic acids (DNA/RNA)",
+            "Enzymes: Classification, Mechanism (Lock & Key, Induced Fit), Factors affecting activity",
+            "Cell Cycle: Interphase, Mitosis (Phases), Meiosis (Stages & Significance)",
+            "Differences between plant and animal cells"
+        ]
+    },
+    {
+        "id": "biology-4",
+        "title": "4. Plant Physiology",
+        "topics": [
+            "Transport in Plants: Diffusion, Osmosis, Plasmolysis, Imbibition",
+            "Water movement (Root pressure, Transpiration pull, Cohesion-Tension theory)",
+            "Mineral Nutrition: Essential elements, Nitrogen cycle, Biological nitrogen fixation",
+            "Photosynthesis: Pigments (Chl-a, b, Carotenoids), Light & Dark reactions (Cyclic/Non-cyclic photophosphorylation)",
+            "C3 vs C4 pathways (Kranz anatomy), Photorespiration",
+            "Respiration: Glycolysis, Krebs cycle, ETS (ATP yield), Fermentation",
+            "Plant Growth Regulators: Auxins, Gibberellins, Cytokinins, ABA, Ethylene",
+            "Photoperiodism and Vernalization"
+        ]
+    },
+    {
+        "id": "biology-5",
+        "title": "5. Human Physiology",
+        "topics": [
+            "Digestive System: Alimentary canal, Digestive glands, Enzymes (Amylase, Pepsin, Lipase)",
+            "Respiratory System: Mechanism, Gas exchange, Transport (O2-Hb dissociation curve)",
+            "Circulatory System: Blood components, Heart cycle, ECG, Double circulation",
+            "Excretory System: Nephron function, Counter-current mechanism, ADH regulation",
+            "Nervous System: Neuron structure, Reflex arc, CNS vs PNS",
+            "Endocrine System: Hormones (Insulin, Thyroxine), Disorders (Diabetes, Goiter)",
+            "Locomotion: Muscle contraction (Sliding filament theory), Skeletal disorders (Arthritis, Osteoporosis)"
+        ]
+    },
+    {
+        "id": "biology-6",
+        "title": "6. Reproduction",
+        "topics": [
+            "Asexual Reproduction: Binary fission, Budding, Sporulation",
+            "Sexual Reproduction in Plants: Flower structure, Pollination types (Self/Cross), Double fertilization",
+            "Post-fertilization events: Seed formation (Albuminous/Non-albuminous), Fruit development",
+            "Human Reproduction: Male/Female reproductive anatomy, Gametogenesis (Spermatogenesis/Oogenesis)",
+            "Menstrual Cycle (Hormonal control), Fertilization, Implantation",
+            "Reproductive Health: Contraception methods (IUDs, Pills), IVF, ZIFT, GIFT, Amniocentesis risks"
+        ]
+    },
+    {
+        "id": "biology-7",
+        "title": "7. Genetics and Evolution",
+        "topics": [
+            "Mendel’s Laws (Dominance, Segregation, Independent Assortment)",
+            "Extensions of Mendelism: Incomplete dominance (Snapdragon), Codominance (Blood groups)",
+            "Linkage & Recombination (Morgan’s Drosophila experiments)",
+            "Sex Determination: XX-XY, ZW, Haplodiploidy systems",
+            "Human Genetic Disorders: Pedigree analysis (Haemophilia, Sickle-cell anemia)",
+            "DNA Structure (Watson-Crick model), Replication (Semi-conservative)",
+            "Central Dogma: Transcription (hnRNA → mRNA), Translation (tRNA, Ribosomes)",
+            "Evolution Theories: Darwinism, Neo-Darwinism, Hardy-Weinberg principle"
+        ]
+    },
+    {
+        "id": "biology-8",
+        "title": "8. Biology and Human Welfare",
+        "topics": [
+            "Human Diseases: Malaria (Plasmodium), AIDS (HIV), Cancer (Oncogenes)",
+            "Immunity: Innate vs Acquired (Vaccines, Antibodies, Allergy)",
+            "Microbes in Industry: Fermentation (Curd, Wine), Antibiotics (Penicillin)",
+            "Biocontrol Agents: Bacillus thuringiensis (Bt crops)",
+            "Biofertilizers: Rhizobium, Mycorrhiza"
+        ]
+    },
+    {
+        "id": "biology-9",
+        "title": "9. Biotechnology and Applications",
+        "topics": [
+            "Recombinant DNA Technology: Restriction enzymes (EcoRI), Vectors (pBR322)",
+            "PCR (Polymerase Chain Reaction), Gel Electrophoresis",
+            "Applications: Insulin production, Gene therapy (SCID), Golden Rice (GMO)",
+            "Ethical Issues: Biopiracy, Patenting (Basmati rice, Neem)"
+        ]
+    },
+    {
+        "id": "biology-10",
+        "title": "10. Ecology and Environment",
+        "topics": [
+            "Ecosystem Components: Productivity (GPP/NPP), Decomposition",
+            "Ecological Pyramids (Energy, Biomass, Numbers)",
+            "Biodiversity Conservation: Hotspots (Western Ghats), IUCN Red List",
+            "Environmental Issues: Ozone depletion, Eutrophication, Biomagnification",
+            "Sustainable Development: Agroforestry, Rainwater harvesting"
+        ]
+    }
+        ]
         ];
         
         // Toggle mobile menu

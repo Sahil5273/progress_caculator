@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry - Exam Prep Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #991b1b;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            position: relative;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .navbar-toggle {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .navbar-menu li {
+            margin-left: 2rem;
+        }
+        
+        .navbar-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        .navbar-menu a:hover {
+            color: #f0f0f0;
+            text-decoration: underline;
+        }
+        
+        .subject-header {
+            background-color: #b91c1c;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+        
+        .progress-summary {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .progress-text {
+            font-size: 1.2rem;
+        }
+        
+        .progress-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #b91c1c;
+        }
+        
+        .chapter-list {
+            list-style: none;
+        }
+        
+        .chapter-item {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .chapter-header {
+            padding: 1rem;
+            background-color: #feeaeb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .chapter-header:hover {
+            background-color: #fdd3d5;
+        }
+        
+        .chapter-title {
+            font-weight: bold;
+            color: #991b1b;
+        }
+        
+        .chapter-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #991b1b;
+            cursor: pointer;
+        }
+        
+        .chapter-content {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .chapter-content.active {
+            max-height: 500px;
+            padding: 1rem;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .topic-list {
+            list-style: circle;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .rating-container {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #e0e0e0;
+        }
+        
+        .rating-label {
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+        
+        .rating-input {
+            width: 70%;
+            margin-right: 1rem;
+        }
+        
+        .rating-value {
+            width: 2rem;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .save-button {
+            background-color: #991b1b;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .save-button:hover {
+            background-color: #b91c1c;
+        }
+        
+        footer {
+            background-color: #991b1b;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            color: #991b1b;
+            margin: 1.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #fdd3d5;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .navbar-toggle {
+                display: block;
+            }
+            
+            .navbar-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #991b1b;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0;
+                display: none;
+                z-index: 100;
+            }
+            
+            .navbar-menu.active {
+                display: flex;
+            }
+            
+            .navbar-menu li {
+                margin: 0.5rem 0;
+            }
+            
+            .progress-summary {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .progress-text {
+                margin-bottom: 0.5rem;
+            }
+            
+            .rating-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .rating-label {
+                margin-bottom: 0.5rem;
+            }
+            
+            .rating-input {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="navbar-title">Exam Prep Tracker</div>
+                <button class="navbar-toggle" id="navbar-toggle">☰</button>
+                <ul class="navbar-menu" id="navbar-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="physics.html">Physics</a></li>
+                    <li><a href="chemistry.html">Chemistry</a></li>
+                    <li><a href="biology.html">Biology</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="subject-header">
+            <h1>Chemistry</h1>
+            <p>Track your progress in all Chemistry chapters</p>
+        </div>
+        
+        <div class="progress-summary">
+            <div class="progress-text">Your overall Chemistry preparation:</div>
+            <div class="progress-value" id="chemistry-progress-value">0%</div>
+        </div>
+        
+        <h2 class="section-title">Physical Chemistry</h2>
+        <ul class="chapter-list" id="chemistry-physical-chapters">
+            <!-- Physical Chemistry chapters will be dynamically generated here -->
+        </ul>
+        
+        <h2 class="section-title">Inorganic Chemistry</h2>
+        <ul class="chapter-list" id="chemistry-inorganic-chapters">
+            <!-- Inorganic Chemistry chapters will be dynamically generated here -->
+        </ul>
+        
+        <h2 class="section-title">Organic Chemistry</h2>
+        <ul class="chapter-list" id="chemistry-organic-chapters">
+            <!-- Organic Chemistry chapters will be dynamically generated here -->
+        </ul>
+        
+        <button class="save-button" id="save-all-button">Save All Changes</button>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Exam Prep Tracker - Your Study Progress Partner</p>
+        </div>
+    </footer>
+
+    <script>
+        // Chemistry chapter lists
+        const physicalChemistryChapters = [
+            {
+                id: "chem-physical-1",
+                title: "1. Some Basic Concepts in Chemistry",
+                topics: [
+                    "Matter and its nature",
+                    "Laws of chemical combination",
+                    "Dalton's atomic theory",
+                    "Atomic and molecular masses",
+                    "Mole concept and stoichiometry"
+                ]
+            },
+            {
+                id: "chem-physical-2",
+                title: "2. Atomic Structure",
+                topics: [
+                    "Discovery of subatomic particles",
+                    "Bohr's model and its limitations",
+                    "Quantum mechanical model",
+                    "Concept of orbitals",
+                    "Electronic configuration of atoms"
+                ]
+            },
+            {
+                id: "chem-physical-3",
+                title: "3. Chemical Bonding and Molecular Structure",
+                topics: [
+                    "Ionic and covalent bonds",
+                    "Bond parameters",
+                    "VSEPR theory",
+                    "Hybridization",
+                    "Molecular orbital theory"
+                ]
+            },
+            {
+                id: "chem-physical-4",
+                title: "4. Chemical Thermodynamics",
+                topics: [
+                    "First law of thermodynamics",
+                    "Enthalpy and enthalpy changes",
+                    "Hess's law",
+                    "Second and third laws of thermodynamics",
+                    "Gibbs energy and spontaneity"
+                ]
+            },
+            {
+                id: "chem-physical-5",
+                title: "5. Solutions",
+                topics: [
+                    "Types of solutions",
+                    "Solubility",
+                    "Colligative properties",
+                    "Raoult's law",
+                    "Abnormal molecular mass"
+                ]
+            },
+            {
+                id: "chem-physical-6",
+                title: "6. Equilibrium",
+                topics: [
+                    "Law of mass action",
+                    "Le Chatelier's principle",
+                    "Ionic equilibrium",
+                    "Acids, bases, and salts",
+                    "Buffer solutions"
+                ]
+            },
+            {
+                id: "chem-physical-7",
+                title: "7. Redox Reactions and Electrochemistry",
+                topics: [
+                    "Oxidation number concept",
+                    "Redox reactions",
+                    "Electrochemical cells",
+                    "Nernst equation",
+                    "Electrolysis and its applications"
+                ]
+            },
+            {
+                id: "chem-physical-8",
+                title: "8. Chemical Kinetics",
+                topics: [
+                    "Rate of reaction",
+                    "Factors affecting reaction rates",
+                    "Order and molecularity",
+                    "Rate laws and rate constant",
+                    "Collision theory and activated complex"
+                ]
+            }
+        ];
+        
+        const inorganicChemistryChapters = [
+            {
+                id: "chem-inorganic-1",
+                title: "1. Classification of Elements and Periodicity in Properties",
+                topics: [
+                    "Modern periodic table",
+                    "Periodic trends in properties",
+                    "Effective nuclear charge",
+                    "Shielding effect",
+                    "Anomalous properties of second period elements"
+                ]
+            },
+            {
+                id: "chem-inorganic-2",
+                title: "2. The p-Block Elements",
+                topics: [
+                    "Group 13 (Boron family)",
+                    "Group 14 (Carbon family)",
+                    "Group 15 (Nitrogen family)",
+                    "Group 16 (Oxygen family)",
+                    "Group 17 (Halogen family) and Group 18 (Noble gases)"
+                ]
+            },
+            {
+                id: "chem-inorganic-3",
+                title: "3. The d- and f-Block Elements",
+                topics: [
+                    "General introduction to d-block elements",
+                    "Electronic configurations",
+                    "Characteristics of transition elements",
+                    "Lanthanoids and actinoids",
+                    "Applications of d- and f-block elements"
+                ]
+            },
+            {
+                id: "chem-inorganic-4",
+                title: "4. Coordination Compounds",
+                topics: [
+                    "Werner's coordination theory",
+                    "Ligands and coordination number",
+                    "IUPAC nomenclature",
+                    "Bonding theories",
+                    "Applications of coordination compounds"
+                ]
+            }
+        ];
+        
+        const organicChemistryChapters = [
+            {
+                id: "chem-organic-1",
+                title: "1. Purification and Characterization of Organic Compounds",
+                topics: [
+                    "Purification methods",
+                    "Qualitative analysis",
+                    "Quantitative analysis",
+                    "Determination of molecular mass",
+                    "Spectroscopic techniques"
+                ]
+            },
+            {
+                id: "chem-organic-2",
+                title: "2. Some Basic Principles of Organic Chemistry",
+                topics: [
+                    "IUPAC nomenclature",
+                    "Isomerism",
+                    "Electronic displacement effects",
+                    "Reaction mechanisms",
+                    "Types of organic reactions",
+                    "Electronic displacement effects",
+                    "Reaction mechanisms",
+                    "Types of organic reactions"
+                ]
+            },
+            {
+                id: "chem-organic-3",
+                title: "3. Hydrocarbons",
+                topics: [
+                    "Alkanes and cycloalkanes",
+                    "Alkenes and alkynes",
+                    "Aromatic hydrocarbons",
+                    "Petroleum and petrochemicals",
+                    "Coal and its products"
+                ]
+            },
+            {
+                id: "chem-organic-4",
+                title: "4. Organic Compounds Containing Halogens",
+                topics: [
+                    "Classification and nomenclature",
+                    "Methods of preparation",
+                    "Physical and chemical properties",
+                    "Reaction mechanisms",
+                    "Polyhalogen compounds"
+                ]
+            },
+            {
+                id: "chem-organic-5",
+                title: "5. Organic Compounds Containing Oxygen",
+                topics: [
+                    "Alcohols, phenols, and ethers",
+                    "Aldehydes and ketones",
+                    "Carboxylic acids and their derivatives",
+                    "Reaction mechanisms",
+                    "Applications of oxygen-containing compounds"
+                ]
+            },
+            {
+                id: "chem-organic-6",
+                title: "6. Organic Compounds Containing Nitrogen",
+                topics: [
+                    "Amines and diazonium salts",
+                    "Methods of preparation",
+                    "Physical and chemical properties",
+                    "Reaction mechanisms",
+                    "Applications of nitrogen compounds"
+                ]
+            },
+            {
+                id: "chem-organic-7",
+                title: "7. Biomolecules",
+                topics: [
+                    "Carbohydrates",
+                    "Proteins",
+                    "Enzymes",
+                    "Vitamins and hormones",
+                    "Nucleic acids"
+                ]
+            },
+            {
+                id: "chem-organic-8",
+                title: "8. Principles Related to Practical Chemistry",
+                topics: [
+                    "Detection of elements",
+                    "Functional group analysis",
+                    "Preparation of organic compounds",
+                    "Chromatographic techniques",
+                    "Chemical calculations"
+                ]
+            }
+        ];
+        
+        // Combine all chemistry chapters
+        const chemistryChapters = [
+            ...physicalChemistryChapters,
+            ...inorganicChemistryChapters,
+            ...organicChemistryChapters
+        ];
+        
+        // Toggle mobile menu
+        document.getElementById('navbar-toggle').addEventListener('click', function() {
+            document.getElementById('navbar-menu').classList.toggle('active');
+        });
+        
+        // Function to render chapter list
+        function renderChapterList() {
+            // Render Physical Chemistry chapters
+            renderChapterSection(physicalChemistryChapters, 'chemistry-physical-chapters');
+            
+            // Render Inorganic Chemistry chapters
+            renderChapterSection(inorganicChemistryChapters, 'chemistry-inorganic-chapters');
+            
+            // Render Organic Chemistry chapters
+            renderChapterSection(organicChemistryChapters, 'chemistry-organic-chapters');
+            
+            // Update progress display
+            updateProgressDisplay();
+        }
+        
+        // Function to render a section of chapters
+        function renderChapterSection(chapters, containerId) {
+            const chapterList = document.getElementById(containerId);
+            chapterList.innerHTML = '';
+            
+            // Get stored progress data
+            const progressData = JSON.parse(localStorage.getItem('chemistryProgress')) || {};
+            
+            chapters.forEach(chapter => {
+                // Create chapter item
+                const chapterItem = document.createElement('li');
+                chapterItem.classList.add('chapter-item');
+                
+                // Create chapter header
+                const chapterHeader = document.createElement('div');
+                chapterHeader.classList.add('chapter-header');
+                chapterHeader.innerHTML = `
+                    <div class="chapter-title">${chapter.title}</div>
+                    <button class="chapter-toggle">▼</button>
+                `;
+                
+                // Create chapter content
+                const chapterContent = document.createElement('div');
+                chapterContent.classList.add('chapter-content');
+                
+                // Create topic list
+                const topicList = document.createElement('ul');
+                topicList.classList.add('topic-list');
+                
+                chapter.topics.forEach(topic => {
+                    const topicItem = document.createElement('li');
+                    topicItem.textContent = topic;
+                    topicList.appendChild(topicItem);
+                });
+                
+                // Create rating container
+                const ratingContainer = document.createElement('div');
+                ratingContainer.classList.add('rating-container');
+                ratingContainer.innerHTML = `
+                    <div class="rating-label">Rate your preparation (0-10):</div>
+                    <input type="range" min="0" max="10" value="${progressData[chapter.id] || 0}" class="rating-input" id="${chapter.id}-rating">
+                    <div class="rating-value" id="${chapter.id}-value">${progressData[chapter.id] || 0}</div>
+                `;
+                
+                // Append elements
+                chapterContent.appendChild(topicList);
+                chapterContent.appendChild(ratingContainer);
+                chapterItem.appendChild(chapterHeader);
+                chapterItem.appendChild(chapterContent);
+                chapterList.appendChild(chapterItem);
+                
+                // Add event listeners
+                chapterHeader.addEventListener('click', function() {
+                    // Toggle chapter content
+                    chapterContent.classList.toggle('active');
+                    
+                    // Toggle chapter toggle button
+                    const toggleButton = chapterHeader.querySelector('.chapter-toggle');
+                    toggleButton.textContent = chapterContent.classList.contains('active') ? '▲' : '▼';
+                });
+                
+                // Add event listener for rating input
+                const ratingInput = ratingContainer.querySelector('.rating-input');
+                const ratingValue = ratingContainer.querySelector('.rating-value');
+                
+                ratingInput.addEventListener('input', function() {
+                    ratingValue.textContent = this.value;
+                });
+            });
+        }
+        
+        // Function to save all progress data
+        function saveAllProgress() {
+            const progressData = JSON.parse(localStorage.getItem('chemistryProgress')) || {};
+            
+            chemistryChapters.forEach(chapter => {
+                const ratingInput = document.getElementById(`${chapter.id}-rating`);
+                if (ratingInput) {
+                    progressData[chapter.id] = ratingInput.value;
+                }
+            });
+            
+            localStorage.setItem('chemistryProgress', JSON.stringify(progressData));
+            updateProgressDisplay();
+            
+            // Show save confirmation
+            alert('Progress saved successfully!');
+        }
+        
+        // Function to update progress display
+        function updateProgressDisplay() {
+            const progressData = JSON.parse(localStorage.getItem('chemistryProgress')) || {};
+            
+            let totalRating = 0;
+            let chapterCount = chemistryChapters.length;
+            
+            chemistryChapters.forEach(chapter => {
+                totalRating += parseInt(progressData[chapter.id] || 0);
+            });
+            
+            const progressPercentage = Math.round((totalRating / (chapterCount * 10)) * 100);
+            document.getElementById('chemistry-progress-value').textContent = progressPercentage + '%';
+        }
+        
+        // Add event listener for save button
+        document.getElementById('save-all-button').addEventListener('click', saveAllProgress);
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', renderChapterList);
+    </script>
+</body>
+</html>

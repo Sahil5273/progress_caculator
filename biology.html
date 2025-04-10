@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology - Exam Prep Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #166534;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            position: relative;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .navbar-toggle {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .navbar-menu li {
+            margin-left: 2rem;
+        }
+        
+        .navbar-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        .navbar-menu a:hover {
+            color: #f0f0f0;
+            text-decoration: underline;
+        }
+        
+        .subject-header {
+            background-color: #15803d;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+        
+        .progress-summary {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .progress-text {
+            font-size: 1.2rem;
+        }
+        
+        .progress-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #15803d;
+        }
+        
+        .chapter-list {
+            list-style: none;
+        }
+        
+        .chapter-item {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .chapter-header {
+            padding: 1rem;
+            background-color: #e6f7ef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .chapter-header:hover {
+            background-color: #d1f0e0;
+        }
+        
+        .chapter-title {
+            font-weight: bold;
+            color: #166534;
+        }
+        
+        .chapter-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #166534;
+            cursor: pointer;
+        }
+        
+        .chapter-content {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .chapter-content.active {
+            max-height: 500px;
+            padding: 1rem;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .topic-list {
+            list-style: circle;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .rating-container {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #e0e0e0;
+        }
+        
+        .rating-label {
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+        
+        .rating-input {
+            width: 70%;
+            margin-right: 1rem;
+        }
+        
+        .rating-value {
+            width: 2rem;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .save-button {
+            background-color: #166534;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .save-button:hover {
+            background-color: #15803d;
+        }
+        
+        footer {
+            background-color: #166534;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .navbar-toggle {
+                display: block;
+            }
+            
+            .navbar-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #166534;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0;
+                display: none;
+                z-index: 100;
+            }
+            
+            .navbar-menu.active {
+                display: flex;
+            }
+            
+            .navbar-menu li {
+                margin: 0.5rem 0;
+            }
+            
+            .progress-summary {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .progress-text {
+                margin-bottom: 0.5rem;
+            }
+            
+            .rating-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .rating-label {
+                margin-bottom: 0.5rem;
+            }
+            
+            .rating-input {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="navbar-title">Exam Prep Tracker</div>
+                <button class="navbar-toggle" id="navbar-toggle">☰</button>
+                <ul class="navbar-menu" id="navbar-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="physics.html">Physics</a></li>
+                    <li><a href="chemistry.html">Chemistry</a></li>
+                    <li><a href="biology.html">Biology</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="subject-header">
+            <h1>Biology</h1>
+            <p>Track your progress in all Biology chapters</p>
+        </div>
+        
+        <div class="progress-summary">
+            <div class="progress-text">Your overall Biology preparation:</div>
+            <div class="progress-value" id="biology-progress-value">0%</div>
+        </div>
+        
+        <ul class="chapter-list" id="biology-chapters">
+            <!-- Chapter items will be dynamically generated here -->
+        </ul>
+        
+        <button class="save-button" id="save-all-button">Save All Changes</button>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Exam Prep Tracker - Your Study Progress Partner</p>
+        </div>
+    </footer>
+
+    <script>
+        // Biology chapter list
+        const biologyChapters = [
+            {
+                id: "biology-1",
+                title: "1. Diversity in the Living World",
+                topics: [
+                    "Taxonomy and systematics",
+                    "Five kingdom classification",
+                    "Salient features of major groups",
+                    "Biological nomenclature",
+                    "Tools for study of taxonomy"
+                ]
+            },
+            {
+                id: "biology-2",
+                title: "2. Structural Organisation in Animals and Plants",
+                topics: [
+                    "Plant tissues and tissue systems",
+                    "Morphology and anatomy of flowering plants",
+                    "Animal tissues",
+                    "Morphology and anatomy of different animal types",
+                    "Structural adaptations in animals"
+                ]
+            },
+            {
+                id: "biology-3",
+                title: "3. Cell Structure and Function",
+                topics: [
+                    "Cell theory and cell as basic unit of life",
+                    "Prokaryotic and eukaryotic cells",
+                    "Cell organelles and their functions",
+                    "Cell division: mitosis and meiosis",
+                    "Biomolecules and enzymes"
+                ]
+            },
+            {
+                id: "biology-4",
+                title: "4. Plant Physiology",
+                topics: [
+                    "Transport in plants",
+                    "Mineral nutrition",
+                    "Photosynthesis",
+                    "Respiration",
+                    "Plant growth and development"
+                ]
+            },
+            {
+                id: "biology-5",
+                title: "5. Human Physiology",
+                topics: [
+                    "Digestive system",
+                    "Respiratory system",
+                    "Circulatory system",
+                    "Excretory system",
+                    "Nervous system and sense organs"
+                ]
+            },
+            {
+                id: "biology-6",
+                title: "6. Reproduction",
+                topics: [
+                    "Asexual and sexual reproduction",
+                    "Reproduction in flowering plants",
+                    "Human reproductive system",
+                    "Gametogenesis, fertilization and development",
+                    "Reproductive health"
+                ]
+            },
+            {
+                id: "biology-7",
+                title: "7. Genetics and Evolution",
+                topics: [
+                    "Mendelian genetics",
+                    "Chromosomal basis of inheritance",
+                    "Molecular basis of inheritance",
+                    "Evolution: theories and evidences",
+                    "Human evolution"
+                ]
+            },
+            {
+                id: "biology-8",
+                title: "8. Biology and Human Welfare",
+                topics: [
+                    "Health and disease",
+                    "Immunity and immunology",
+                    "Agricultural practices",
+                    "Animal husbandry",
+                    "Microbes in human welfare"
+                ]
+            },
+            {
+                id: "biology-9",
+                title: "9. Biotechnology and Its Applications",
+                topics: [
+                    "Principles and processes of biotechnology",
+                    "Genetic engineering and genomics",
+                    "Applications in agriculture",
+                    "Applications in medicine",
+                    "Biosafety and bioethics"
+                ]
+            },
+            {
+                id: "biology-10",
+                title: "10. Ecology and Environment",
+                topics: [
+                    "Ecosystems: structure and function",
+                    "Biodiversity and conservation",
+                    "Environmental issues",
+                    "Population interactions",
+                    "Biogeochemical cycles"
+                ]
+            }
+        ];
+        
+        // Toggle mobile menu
+        document.getElementById('navbar-toggle').addEventListener('click', function() {
+            document.getElementById('navbar-menu').classList.toggle('active');
+        });
+        
+        // Function to render chapter list
+        function renderChapterList() {
+            const chapterList = document.getElementById('biology-chapters');
+            chapterList.innerHTML = '';
+            
+            // Get stored progress data
+            const progressData = JSON.parse(localStorage.getItem('biologyProgress')) || {};
+            
+            biologyChapters.forEach(chapter => {
+                // Create chapter item
+                const chapterItem = document.createElement('li');
+                chapterItem.classList.add('chapter-item');
+                
+                // Create chapter header
+                const chapterHeader = document.createElement('div');
+                chapterHeader.classList.add('chapter-header');
+                chapterHeader.innerHTML = `
+                    <div class="chapter-title">${chapter.title}</div>
+                    <button class="chapter-toggle">▼</button>
+                `;
+                
+                // Create chapter content
+                const chapterContent = document.createElement('div');
+                chapterContent.classList.add('chapter-content');
+                
+                // Create topic list
+                const topicList = document.createElement('ul');
+                topicList.classList.add('topic-list');
+                
+                chapter.topics.forEach(topic => {
+                    const topicItem = document.createElement('li');
+                    topicItem.textContent = topic;
+                    topicList.appendChild(topicItem);
+                });
+                
+                // Create rating container
+                const ratingContainer = document.createElement('div');
+                ratingContainer.classList.add('rating-container');
+                ratingContainer.innerHTML = `
+                    <div class="rating-label">Rate your preparation (0-10):</div>
+                    <input type="range" min="0" max="10" value="${progressData[chapter.id] || 0}" class="rating-input" id="${chapter.id}-rating">
+                    <div class="rating-value" id="${chapter.id}-value">${progressData[chapter.id] || 0}</div>
+                `;
+                
+                // Append elements
+                chapterContent.appendChild(topicList);
+                chapterContent.appendChild(ratingContainer);
+                chapterItem.appendChild(chapterHeader);
+                chapterItem.appendChild(chapterContent);
+                chapterList.appendChild(chapterItem);
+                
+                // Add event listeners
+                chapterHeader.addEventListener('click', function() {
+                    // Toggle chapter content
+                    chapterContent.classList.toggle('active');
+                    
+                    // Toggle chapter toggle button
+                    const toggleButton = chapterHeader.querySelector('.chapter-toggle');
+                    toggleButton.textContent = chapterContent.classList.contains('active') ? '▲' : '▼';
+                });
+                
+                // Add event listener for rating input
+                const ratingInput = ratingContainer.querySelector('.rating-input');
+                const ratingValue = ratingContainer.querySelector('.rating-value');
+                
+                ratingInput.addEventListener('input', function() {
+                    ratingValue.textContent = this.value;
+                });
+            });
+            
+            // Update progress display
+            updateProgressDisplay();
+        }
+        
+        // Function to save all progress data
+        function saveAllProgress() {
+            const progressData = {};
+            
+            biologyChapters.forEach(chapter => {
+                const ratingInput = document.getElementById(`${chapter.id}-rating`);
+                progressData[chapter.id] = ratingInput.value;
+            });
+            
+            localStorage.setItem('biologyProgress', JSON.stringify(progressData));
+            updateProgressDisplay();
+            
+            // Show save confirmation
+            alert('Progress saved successfully!');
+        }
+        
+        // Function to update progress display
+        function updateProgressDisplay() {
+            const progressData = JSON.parse(localStorage.getItem('biologyProgress')) || {};
+            
+            let totalRating = 0;
+            let chapterCount = biologyChapters.length;
+            
+            biologyChapters.forEach(chapter => {
+                totalRating += parseInt(progressData[chapter.id] || 0);
+            });
+            
+            const progressPercentage = Math.round((totalRating / (chapterCount * 10)) * 100);
+            document.getElementById('biology-progress-value').textContent = progressPercentage + '%';
+        }
+        
+        // Add event listener for save button
+        document.getElementById('save-all-button').addEventListener('click', saveAllProgress);
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', renderChapterList);
+    </script>
+</body>
+</html>
